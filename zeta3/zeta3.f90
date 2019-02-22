@@ -1,5 +1,5 @@
 PROGRAM zeta3
-    INTEGER :: n, argc, stat
+    INTEGER :: n, p, argc, stat
     REAL :: pi
     CHARACTER(32) :: argv
 
@@ -18,7 +18,8 @@ PROGRAM zeta3
             call zeta3vtest()
         else
             READ(argv,*) n
-            call zeta3Calc(n, pi, 2)
+            p = omp_get_max_threads()
+            call zeta3Calc(n, pi, p)
             PRINT*, "Pi = ", pi
         endif
     endif
@@ -54,7 +55,7 @@ SUBROUTINE zeta3utest(stat)
 END SUBROUTINE zeta3utest
 
 SUBROUTINE zeta3vtest()
-    INTEGER :: n, k
+    INTEGER :: n, k, p
     REAL :: pi, pi_real, start, finish
 
     PRINT*, "=== Commencing Verification Test of zeta3 ==="
@@ -62,19 +63,21 @@ SUBROUTINE zeta3vtest()
     ! Create file.
     open(1, file = "zeta3.txt")
     ! Create header for file. CHAR(9) is tab
-    write(1,*) "n", CHAR(9), "difference", CHAR(9), "time"
+    write(1,*) "processes", CHAR(9), "n", CHAR(9), "difference", CHAR(9), "time"
 
-    n = 2
     pi_real = 4*atan(1.0)
 
     ! Calculate Pi for different n. Save n, result and time used in file
-    do k = 1, 24
-        call CPU_TIME(start)
-        call zeta3calc(n,pi, 2)
-        call CPU_TIME(finish)
-        write(1,*) n, abs(pi - pi_real), finish-start
-        PRINT*, "n = ", n, ". Time = ", finish-start
-        n = n * 2
+    do p = 1,4
+        n = 2
+        do k = 1, 24
+            call CPU_TIME(start)
+            call zeta3calc(n, pi, p)
+            call CPU_TIME(finish)
+            write(1,*) p, n, abs(pi - pi_real), finish-start
+            PRINT*, "p = ", p, "n = ", n, ". Time = ", finish-start
+            n = n * 2
+        enddo
     enddo
 
     PRINT*, "Verfication Test Completed! Results saved in 'zeta3.txt'"

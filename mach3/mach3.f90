@@ -1,17 +1,14 @@
 PROGRAM mach3
     IMPLICIT NONE
-    INTEGER :: n, argc, stat
+    INTEGER :: n, p, argc, stat
     REAL :: pi
     CHARACTER(32) :: argv
-
-    ! Note that this file is almost identical to zeta0
-    ! I've just swapped zeta0 with mach3
 
     ! Get Input
     argc = COMMAND_ARGUMENT_COUNT()
     if (argc /= 1) then
         ! Invalid input
-        PRINT*, "mach3 needs an input value n=integer or a string 'utest' or 'vtest' to indicate tests "
+        PRINT*, "mach3 needs an input value n=integer or a string 'utest' or 'vtest' to indicate tests"
         STOP
     else 
         call GET_COMMAND_ARGUMENT(1,argv)
@@ -22,11 +19,11 @@ PROGRAM mach3
             call mach3vtest()
         else
             READ(argv,*) n
-            CALL mach3Calc2(n, pi, 2)
+            p = 2
+            CALL mach3Calc2(n, pi, p)
             PRINT*, "Pi = ", pi
         endif
     endif
-
 END PROGRAM mach3
 
 SUBROUTINE mach3utest(stat)
@@ -62,7 +59,7 @@ SUBROUTINE mach3utest(stat)
 END SUBROUTINE mach3utest
 
 SUBROUTINE mach3vtest()
-    INTEGER :: n, k
+    INTEGER :: n, k, p
     REAL :: pi, pi_real, start, finish
 
     PRINT*, "=== Commencing Verification Test of mach3 ==="
@@ -70,24 +67,24 @@ SUBROUTINE mach3vtest()
     ! Create file
     open(1, file = "mach3.txt")
     ! Create header for file. Char(9) is tab
-    write(1,*) "n", CHAR(9), "difference", CHAR(9), "time"
-    n = 2
+    write(1,*) "processes", CHAR(9), "n", CHAR(9), "difference", CHAR(9), "time"
     pi_real = 4*atan(1.0)
 
     ! Calculate Pi for different n. Save n, result and time used in file
-    do k = 1, 24
-        call CPU_TIME(start)
-        call mach3calc2(n,pi, 2)
-        call CPU_TIME(finish)
-        write(1,*) n, abs(pi - pi_real), finish-start
-        PRINT*, "n = ", n, ". Time = ", finish-start
-        n = n * 2
+    do p = 1,4
+        n = 2
+        do k = 1, 24
+            call CPU_TIME(start)
+            call mach3calc2(n,pi, p)
+            call CPU_TIME(finish)
+            write(1,*) p, n, abs(pi - pi_real), finish-start
+            PRINT*, "p =", p, "n = ", n, ". Time = ", finish-start
+            n = n * 2
+        enddo
     enddo
     PRINT*, "Verfication Test Completed! Results saved in 'mach3.txt'"
     PRINT*, "============================================="
 END SUBROUTINE mach3vtest
-
-
 
 SUBROUTINE mach3Calc1(n, pi)
     IMPLICIT NONE
@@ -139,7 +136,7 @@ SUBROUTINE mach3Calc2(n, pi, p)
     frac2 = 1.0/239.0
     sum1 = 0.0
     sum2 = 0.0
-    !$OMP PARALLEL DO REDUCTION(+:sum1), REDUCTION(+:sum2) NUM_THREADS(p)
+    !$OMP PARALLEL DO REDUCTION(+:sum1,sum2) NUM_THREADS(p)
     do i = 1,n
         if (modulo(i,2) == 1) then
             sum1 = sum1 + frac1**(2*i-1)/(2*i - 1)
