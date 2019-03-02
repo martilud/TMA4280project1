@@ -1,0 +1,94 @@
+processes n error time
+1 2
+1 4
+1 8
+1 16
+1 32
+1 64
+1 128
+1 256
+1 512
+1 1024
+1 2048
+1 4096
+1 8192
+1 16384
+1 32768
+1 65536
+1 131072
+1 262144
+1 524288
+1 1048576
+1 2097152
+1 4194304
+1 8388608
+1 16777216
+2 2 2 total processes failed to start
+2 4 2 total processes failed to start
+2 8 2 total processes failed to start
+2 16 2 total processes failed to start
+2 32 2 total processes failed to start
+2 64 2 total processes failed to start
+2 128 2 total processes failed to start
+2 256 2 total processes failed to start
+2 512 2 total processes failed to start
+2 1024 2 total processes failed to start
+2 2048 2 total processes failed to start
+2 4096 2 total processes failed to start
+2 8192 2 total processes failed to start
+2 16384 2 total processes failed to start
+2 32768 2 total processes failed to start
+2 65536 2 total processes failed to start
+2 131072 2 total processes failed to start
+2 262144 2 total processes failed to start
+2 524288 2 total processes failed to start
+2 1048576 2 total processes failed to start
+2 2097152 2 total processes failed to start
+2 4194304 2 total processes failed to start
+2 8388608 2 total processes failed to start
+2 16777216 2 total processes failed to start
+4 4 4 total processes failed to start
+4 8 4 total processes failed to start
+4 16 4 total processes failed to start
+4 32 4 total processes failed to start
+4 64 4 total processes failed to start
+4 128 4 total processes failed to start
+4 256 4 total processes failed to start
+4 512 4 total processes failed to start
+4 1024 4 total processes failed to start
+4 2048 4 total processes failed to start
+4 4096 4 total processes failed to start
+4 8192 4 total processes failed to start
+4 16384 4 total processes failed to start
+4 32768 4 total processes failed to start
+4 65536 4 total processes failed to start
+4 131072 4 total processes failed to start
+4 262144 4 total processes failed to start
+4 524288 4 total processes failed to start
+4 1048576 4 total processes failed to start
+4 2097152 4 total processes failed to start
+4 4194304 4 total processes failed to start
+4 8388608 4 total processes failed to start
+4 16777216 4 total processes failed to start
+8 8 8 total processes failed to start
+8 16 8 total processes failed to start
+8 32 8 total processes failed to start
+8 64 8 total processes failed to start
+8 128 8 total processes failed to start
+8 256 8 total processes failed to start
+8 512 8 total processes failed to start
+8 1024 8 total processes failed to start
+8 2048 8 total processes failed to start
+8 4096 8 total processes failed to start
+8 8192 8 total processes failed to start
+8 16384 8 total processes failed to start
+8 32768 8 total processes failed to start
+8 65536 8 total processes failed to start
+8 131072 8 total processes failed to start
+8 262144 8 total processes failed to start
+8 524288 8 total processes failed to start
+8 1048576 8 total processes failed to start
+8 2097152 8 total processes failed to start
+8 4194304 8 total processes failed to start
+8 8388608 8 total processes failed to start
+8 16777216 8 total processes failed to start

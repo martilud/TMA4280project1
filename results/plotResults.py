@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-if(not "PLOT CONVERGENCE PART 1"):
+if("PLOT CONVERGENCE PART 1"):
     filenames = ['zeta0.txt', 'mach0.txt']
     for file in filenames:
         data = open(file, 'r')
@@ -21,7 +21,7 @@ if(not "PLOT CONVERGENCE PART 1"):
     plt.savefig("Convergence1.pdf")
     plt.show()
 
-if(not "PLOT TIME PART 1"):
+if("PLOT TIME PART 1"):
     filenames = ['zeta0.txt', 'mach0.txt']
     for file in filenames:
         data = open(file, 'r')
@@ -41,7 +41,7 @@ if(not "PLOT TIME PART 1"):
     plt.savefig("Time1.pdf")
     plt.show()
 
-if(not "PLOT CONVERGENCE PART 2"):
+if("PLOT CONVERGENCE PART 2"):
     filenames = ['zeta2.txt', 'mach2.txt']
     for file in filenames:
         data = open(file, 'r')
@@ -68,7 +68,7 @@ if(not "PLOT CONVERGENCE PART 2"):
         plt.savefig(file.split('.')[0] + 'Convergence.pdf')
         plt.show()
 
-if(not "PLOT TIME PART 2"):
+if("PLOT TIME PART 2"):
     filenames = ['zeta2.txt', 'mach2.txt']
     for file in filenames:
         data = open(file, 'r')
