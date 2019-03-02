@@ -31,7 +31,10 @@ and secondly, the slightly more complex, "original" Machin formula, based on the
 
 \section{Question 1. Serial Implementation}
 In both formulae, we can expect roundoff errors for large $i$. In double precision, the mantissa uses $52$ bits, meaning the smallest "distance" we can measure
-between numbers is $2^{-52} \approx 2.22 \times 10^{-16}$. This also means that the order of operations in our calculations actually matter, as floating point operations are not commutative.
+between numbers is $2^{-52} \approx 2.22 \times 10^{-16}$. This is also called the precision of double precision numbers.
+Note this is not the same as the smallest number we can represent in double precision. We can actually represent numbers as small as
+$\pm 2.23 \times 10^{-308}$, but when we start doing mathematical operations, we make round off errors. 
+This also means that the order of operations in our calculations actually matter, as floating point operations are not commutative.
 Note that for \eqref{eq:mach}, it's much faster to calculate $\left(\frac{1}{5}\right)^{2i-1}$ by saving $\left(\frac{1}{5}\right)$ in a variable and multiplying it by 
 $\left(\frac{1}{5}\right)^2$ each iteration instead of calculating it bottom up each iteration.
 My implementation showed to be sufficiently numerically stable, as we will see later. 
@@ -83,7 +86,58 @@ Results from running the verification tests are shown in figures \ref{fig:Conver
     \includegraphics[width=\textwidth]{Time1}
     \label{fig:Time1}
 \end{figure}
-We see that the Machin formula quickly converges to 
+We see that the Machin formula quickly converges to a very low number, specifically $8.9 \times 10^{-16}$. 
+This is obtained after only $16$ iterations, and subsequent iterations do not improve the accuracy of our estimate.
+This is because of roundoff errors. Looking at equation \eqref{eq:mach} we see that the sixteenth term is $\frac{1}{31}((2.15 \times 10^{-22}) + (1.86 \times 10^{-74}))$. 
+As i mentioned earlier, this can be represented as a floating point number, but the computer is unable to evaluate the sum of the two numbers correctly.
+It is also completely unable to evaluate the number we obtain when we add this very small term to our sum variable. Thus, we get stuck at an error of $8.9 \times 10^{-16}$.
+
+For the Riemann-Zeta formula, the convergence is slow, and we are unable to reach a good estimate of $\pi$ even after $2^{24} \approx 1.68 \times 10^7$ iterations. Note that
+the first term where we approach the precision available to us is when $\frac{1}{i^2} \approx 10^{-16}$, meaning the $10^8$th iteration. 
+
+Looking at the time the different foruma uses, we see that the Machin formula is vastly superior here as well. Ironically, there are some round-off errors in timing for very few iterations as well.
+This is somewhat surprising, as the Riemann-Zeta formula is so much simpler. (MAYBE THIS WILL MAKE MORE SENSE WHEN WE LOOK INTO THE NUMBER OF FLOPS)
+
+\section{Question 4. Data distribution}
+Now onto some distributed parallell computing. This means that we have different processing units with their own memory, and we have to use a Message Passing Interface (MPI) to transfer
+data between processes.
+In our program, we have one process calculate each term of the sum, save it into a vector, distribute the vector to different processes and have each process calculate
+their partial sums, before adding the partial sums together. This is a bad decision, because there is an obvious bottleneck. One of the main problems with high performance computing
+are the different bottlenecks. Here, the bottleneck is that one process has to do a lot of work serially. Even worse, the amount of work that has to be done serially perfectly scales
+with the workload. Amdahl's law then predicts an upper limit to the speedup we can achieve. The theoretical speedup can be written as
+\begin{equation}
+    S(s) = \frac{1}{(1-p) + p/s}
+\end{equation}
+where $s$ is the speedup achieved by the part of the program that is parallellizable, which is often assumed to be equal to the number of processing units, and $p$ is the portion of the 
+program that has to be done serially. The point is that $S \le \frac{1}{1-p}$, meaning that if a large part of our program has to be done serially, we can only achieve a marginal speedup.
+
+The solution would be to ensure that as much of the program as possible is done in parallell. This can be done by having each process calculate the terms in their partial sum, not saving it
+in a vector and adding the terms before summing the different partial sums to the master process. Here, the only serial parts of the program is taking arguments from the command line
+and the overhead from MPI. I guess the reason we don't do this is that our program is a good example of data-parallellism that MPI is most often used for.
+
+I actually made a unit test for this part of the program as well, which splits the data using \texttt{MPI\_Scatter}, checks if the resulting subvectors match the original vector, 
+which is transferred using $\texttt{MPI\_Bcast}$, and uses
+\texttt{MPI\_Reduce} to check if any process had any erroneous data.
+
+\section{Question 5. MPI Implementation}
+We've already mentioned how the resulting program works, and we also use \texttt{MPI\_Reduce} here for the final summation of the different
+partial sims. In addition we have to use \texttt{MPI\_Init}, 
+\texttt{MPI\_Comm\_size}, \texttt{MPI\_Comm\_rank} and \texttt{MPI\_Finalize}, as we can't really do anything in MPI without invoking these. 
+Most MPI programs can be made using the mentioned functions and \texttt{MPI\_Send} and \texttt{MPI\_Recv} (we did not need these as \texttt{MPI\_Scatter} was more convenient),
+but there are virtually no limits to how fancy you can make your MPI program
+by using more advanced MPI functions.
+
+For timing we use the \texttt{MPI\_Wtime} function (????????????????????????????????)
+
+\section{Question 6. More MPI analysis}
+
+\section{Question 7. OpenMP implementation}
+
+\section{Question 8. Hybrid MPI/OpenMP implementation}
+
+\section{Question 9. Discussion}
+
+\section{Question 10. Conclusion}
 
 \section{References}
 FIXX ME
