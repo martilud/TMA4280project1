@@ -3,7 +3,8 @@ PROGRAM mach4
     include "mpif.h" 
     INTEGER :: size, rank, error
     INTEGER :: argc
-    INTEGER :: n, localn, i
+    INTEGER :: n, localn
+    INTEGER*8 :: i
     CHARACTER(32) :: argv1, argv2
     REAL, dimension(:), allocatable :: vector, localvector
     REAL :: frac1, frac2, acfrac1, acfrac2

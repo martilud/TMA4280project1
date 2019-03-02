@@ -1,18 +1,23 @@
 PROGRAM mach1
+    IMPLICIT NONE
     include "mpif.h" 
     INTEGER :: size, rank, error
     INTEGER :: argc
-    INTEGER :: n, localn, i
+    INTEGER :: n, localn
+    INTEGER*8 :: i
     CHARACTER(32) :: argv
     REAL, dimension(:), allocatable :: vector, localvector, globalvector
-    REAL :: frac1, frac2, acfrac1, acfrac2
+    REAL :: frac1, frac2, acfrac1, acfrac2, tiny
     LOGICAL :: localequal, equal 
+
+    tiny = 1e-16
 
     ! Initialize MPI
     call MPI_Init(error)
     call MPI_Comm_size(MPI_COMM_WORLD, size, error)
     call MPI_Comm_rank(MPI_COMM_WORLD, rank, error)
 
+    
     ! Get input
     argc = COMMAND_ARGUMENT_COUNT()
     if (argc == 1) then

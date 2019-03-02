@@ -87,7 +87,7 @@ END SUBROUTINE zeta3vtest
 SUBROUTINE zeta3Calc(n, pi, p)
     INTEGER, INTENT(in) :: n, p
     REAL, INTENT(out) :: pi
-    INTEGER :: i
+    INTEGER*8 :: i
     ! Calculate Pi by the Riemann Zeta method
     pi = 0
 

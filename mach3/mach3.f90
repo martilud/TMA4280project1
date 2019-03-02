@@ -91,7 +91,7 @@ SUBROUTINE mach3Calc1(n, pi)
     INTEGER, INTENT(in) :: n
     REAL, INTENT(out) :: pi    
     REAL :: frac1, frac2, acfrac1, acfrac2, sum1, sum2
-    INTEGER :: i
+    INTEGER*8 :: i
 
     ! Calculate Pi by the Machin formula.
     ! This version is much faster than mach3Calc2
@@ -128,7 +128,7 @@ SUBROUTINE mach3Calc2(n, pi, p)
     INTEGER, INTENT(in) :: n, p
     REAL, INTENT(out) :: pi    
     REAL :: frac1, frac2,  sum1, sum2
-    INTEGER :: i
+    INTEGER*8 :: i
 
     ! Calculate Pi by the Machiin formula.
 

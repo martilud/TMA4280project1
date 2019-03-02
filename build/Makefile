@@ -4,7 +4,7 @@
 # Defining variables
 FC		= gfortran
 MPIFC	= mpif90
-FFLAGS	= -fdefault-real-8 -fdefault-integer-8
+FFLAGS	= -fdefault-real-8 
 BUILDDIR= build
 TARGET  = zeta0 mach0 zeta1 mach1 zeta2 mach2 zeta3 mach3 zeta4 mach4
 

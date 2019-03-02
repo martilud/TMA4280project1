@@ -1,11 +1,16 @@
 PROGRAM zeta1
+    IMPLICIT NONE
     include "mpif.h" 
     INTEGER :: size, rank, error
     INTEGER :: argc
-    INTEGER :: n, localn, i
+    INTEGER :: n, localn
+    INTEGER*8 :: i
     CHARACTER(32) :: argv
     REAL, dimension(:), allocatable :: vector, localvector, globalvector
-    LOGICAL :: localequal, equal 
+    LOGICAL :: localequal, equal
+    REAL :: tiny
+
+    tiny = 1e-16 
     
     ! Initialize MPI
     call MPI_Init(error)

@@ -1,4 +1,5 @@
 PROGRAM zeta0
+    IMPLICIT NONE
     INTEGER :: n, argc, stat
     REAL :: pi
     CHARACTER(32) :: argv
@@ -86,7 +87,7 @@ END SUBROUTINE zeta0vtest
 SUBROUTINE zeta0Calc(n, pi)
     INTEGER, INTENT(in) :: n
     REAL, INTENT(out) :: pi
-    INTEGER :: i
+    INTEGER*8 :: i
     ! Calculate Pi by the Riemann Zeta method
     pi = 0
     do i = 1,n
