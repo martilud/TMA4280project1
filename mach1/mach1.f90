@@ -17,7 +17,6 @@ PROGRAM mach1
     call MPI_Comm_size(MPI_COMM_WORLD, size, error)
     call MPI_Comm_rank(MPI_COMM_WORLD, rank, error)
 
-    
     ! Get input
     argc = COMMAND_ARGUMENT_COUNT()
     if (argc == 1) then

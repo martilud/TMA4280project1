@@ -15,7 +15,7 @@ all: $(TARGET)
 
 # Ensure results folder exists
 results:
-	mkdir results
+	mkdir ../results
 
 # Rule specifying how to compile .f90 files
 zeta0: ../zeta0/zeta0.f90
@@ -116,4 +116,4 @@ mach4vtest: mach4 ../mach4/vtest results
 vtest: zeta0vtest mach0vtest zeta2vtest mach2vtest zeta3vtest mach3vtest zeta4vtest mach4vtest
 
 clean:
-	rm -r !(Makefile)
+	rm zeta* mach*
