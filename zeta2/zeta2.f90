@@ -52,8 +52,8 @@ PROGRAM zeta2
     localn =  n/size
     allocate(localvector(localn))
 
-    !time1 = MPI_Wtime()
-    call CPU_TIME(time1)
+    time1 = MPI_Wtime()
+    !call CPU_TIME(time1)
 
     ! Process 0 makes the vector
     if (rank == 0) then
@@ -75,14 +75,15 @@ PROGRAM zeta2
     ! Add partial sums together to process 0
     call MPI_Reduce(localsum, pi, size, MPI_DOUBLE_PRECISION, MPI_SUM, 0, MPI_COMM_WORLD, error) 
     ! =============================
-    !time2 = MPI_Wtime()
 
     ! Deallocate allocated arrays. For some reason, localvector refuses to be deallocated
     !deallocate(localvector)
     if (rank == 0) then
         ! Finish calculating pi
         pi = SQRT(pi*6)
-        call CPU_TIME(time2)
+
+        time2 = MPI_Wtime()
+        !call CPU_TIME(time2)
         
         deallocate(vector)
         ! Execute unit test

@@ -74,9 +74,11 @@ SUBROUTINE mach3vtest()
     do p = 1,4
         n = 2
         do k = 1, 24
-            call CPU_TIME(start)
+            !call CPU_TIME(start)
+            start = omp_get_wtime()
             call mach3calc2(n,pi, p)
-            call CPU_TIME(finish)
+            !call CPU_TIME(finish)
+            finish = omp_get_wtime()
             write(1,*) p, n, abs(pi - pi_real), finish-start
             PRINT*, "p =", p, "n = ", n, ". Time = ", finish-start
             n = n * 2
