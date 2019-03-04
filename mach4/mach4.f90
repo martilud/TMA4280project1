@@ -1,14 +1,15 @@
 PROGRAM mach4
+    use omp_lib
     IMPLICIT NONE
     include "mpif.h" 
     INTEGER :: size, rank, error
     INTEGER :: argc
-    INTEGER :: n, localn
+    INTEGER :: n, localn, p
     INTEGER*8 :: i
     CHARACTER(32) :: argv1, argv2
-    REAL, dimension(:), allocatable :: vector, localvector
-    REAL :: frac1, frac2, acfrac1, acfrac2
-    REAL :: localsum, pi, pi_real, test, diff, time1, time2
+    DOUBLE PRECISION, dimension(:), allocatable :: vector, localvector
+    DOUBLE PRECISION :: frac1, frac2, acfrac1, acfrac2
+    DOUBLE PRECISION :: localsum, pi, pi_real, test, diff, time1, time2
 
     ! Initialize MPI
     call MPI_Init(error)
@@ -92,25 +93,39 @@ PROGRAM mach4
 
     ! Deallocate allocated arrays, for some reason, localvector refuses to be deallocated
     !deallocate(localvector)
-    if (rank == 0) then
-        ! Finish calculating pi
-        pi = 4*pi
-        call CPU_TIME(time2)
-
-        deallocate(vector)
-        ! Execute unit test
-        if (argv1 == "utest") then
-            PRINT*, "=== Commencing Unit Test of zeta2 ==="
+    if (argv1 == "utest") then
+        if (rank == 0) then
+            PRINT*, "=== Commencing Unit Test of mach4 ==="
             pi_real = 4*atan(1.0)
             test = 4*(4*1.0/5.0 - 1.0/239.0)  
+            pi = 4*pi
             diff = abs(pi - pi_real)
             PRINT*, "Calculated Pi using", size, "MPI processes and n =", n, ": ", pi
             PRINT*, "Difference from actual Pi : ", diff
+        end if
+
+        !call MPI_Barrier(MPI_COMM_WORLD)
+
+        !$OMP PARALLEL  
+        p = omp_get_num_threads()
+        PRINT*, "Hello from process rank", rank, ", thread number", omp_get_thread_num(), "!" 
+        !$OMP BARRIER
+        !$OMP END PARALLEL 
+        !call MPI_Barrier(MPI_COMM_WORLD)
+        if (rank == 0) then
             if (diff < test) then
                 PRINT*, "Unit Test Successful!"
             else
                 PRINT*, "Unit Test Failed!"
             endif
+        endif
+    endif
+    if (rank == 0) then
+        ! Finish calculating pi
+        call CPU_TIME(time2)
+
+        deallocate(vector)
+        if (argv1 == "utest") then
             PRINT*, "====================================="
         else if (argv1 == "vtest") then
             pi_real = 4*atan(1.0)

@@ -1,6 +1,6 @@
 PROGRAM zeta3
     INTEGER :: n, p, argc, stat
-    REAL :: pi
+    DOUBLE PRECISION :: pi
     CHARACTER(32) :: argv
 
     ! Get input
@@ -27,7 +27,7 @@ END PROGRAM zeta3
 
 SUBROUTINE zeta3utest(stat)
     INTEGER, INTENT(out) :: stat
-    REAL :: pi, test, pi_real, diff
+    DOUBLE PRECISION :: pi, test, pi_real, diff
     INTEGER :: n, p
 
     PRINT*, "=== Commencing Unit Test of zeta3 ==="
@@ -55,8 +55,9 @@ SUBROUTINE zeta3utest(stat)
 END SUBROUTINE zeta3utest
 
 SUBROUTINE zeta3vtest()
+    use omp_lib
     INTEGER :: n, k, p
-    REAL :: pi, pi_real, start, finish
+    DOUBLE PRECISION :: pi, pi_real, start, finish
 
     PRINT*, "=== Commencing Verification Test of zeta3 ==="
 
@@ -88,7 +89,7 @@ END SUBROUTINE zeta3vtest
 
 SUBROUTINE zeta3Calc(n, pi, p)
     INTEGER, INTENT(in) :: n, p
-    REAL, INTENT(out) :: pi
+    DOUBLE PRECISION, INTENT(out) :: pi
     INTEGER*8 :: i
     ! Calculate Pi by the Riemann Zeta method
     pi = 0

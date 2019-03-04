@@ -6,9 +6,9 @@ PROGRAM mach2
     INTEGER :: n, localn
     INTEGER*8 :: i
     CHARACTER(32) :: argv1, argv2
-    REAL, dimension(:), allocatable :: vector, localvector
-    REAL :: frac1, frac2, acfrac1, acfrac2
-    REAL :: localsum, pi, pi_real, test, diff, time1, time2
+    DOUBLE PRECISION, dimension(:), allocatable :: vector, localvector
+    DOUBLE PRECISION :: frac1, frac2, acfrac1, acfrac2
+    DOUBLE PRECISION :: localsum, pi, pi_real, test, diff, time1, time2
 
     ! Initialize MPI
     call MPI_Init(error)

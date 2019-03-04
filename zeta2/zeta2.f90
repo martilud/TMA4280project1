@@ -6,8 +6,8 @@ PROGRAM zeta2
     INTEGER :: n, localn
     INTEGER*8 :: i
     CHARACTER(32) :: argv1, argv2
-    REAL, dimension(:), allocatable :: vector, localvector
-    REAL :: localsum, pi, pi_real, test, diff, time1, time2
+    DOUBLE PRECISION, dimension(:), allocatable :: vector, localvector
+    DOUBLE PRECISION :: localsum, pi, pi_real, test, diff, time1, time2
 
     ! Initialize MPI
     call MPI_Init(error)
@@ -52,7 +52,7 @@ PROGRAM zeta2
     localn =  n/size
     allocate(localvector(localn))
 
-    time1 = MPI_Wtime()
+    time1 = MPI_Wtime(error)
     !call CPU_TIME(time1)
 
     ! Process 0 makes the vector
@@ -82,7 +82,7 @@ PROGRAM zeta2
         ! Finish calculating pi
         pi = SQRT(pi*6)
 
-        time2 = MPI_Wtime()
+        time2 = MPI_Wtime(error)
         !call CPU_TIME(time2)
         
         deallocate(vector)

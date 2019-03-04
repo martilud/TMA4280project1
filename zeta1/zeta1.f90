@@ -6,9 +6,9 @@ PROGRAM zeta1
     INTEGER :: n, localn
     INTEGER*8 :: i
     CHARACTER(32) :: argv
-    REAL, dimension(:), allocatable :: vector, localvector, globalvector
+    DOUBLE PRECISION, dimension(:), allocatable :: vector, localvector, globalvector
     LOGICAL :: localequal, equal
-    REAL :: tiny
+    DOUBLE PRECISION :: tiny
 
     tiny = 1e-16 
     
