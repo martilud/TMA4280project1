@@ -7,8 +7,8 @@ PROGRAM zeta4
     INTEGER :: n, localn, p
     INTEGER*8 :: i
     CHARACTER(32) :: argv1, argv2
-    DOUBLE PRECISION, dimension(:), allocatable :: vector, localvector
-    DOUBLE PRECISION :: localsum, pi, pi_real, test, diff, time1, time2
+    REAL*8, dimension(:), allocatable :: vector, localvector
+    REAL*8 :: localsum, pi, pi_real, test, diff, time1, time2
 
     ! Initialize MPI
     call MPI_Init(error)

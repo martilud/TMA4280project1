@@ -1,7 +1,7 @@
 PROGRAM zeta0
     IMPLICIT NONE
     INTEGER :: n, argc, stat
-    DOUBLE PRECISION :: pi
+    REAL*8 :: pi
     CHARACTER(32) :: argv
 
     ! Note that this file is almost identical to mach0
@@ -30,7 +30,7 @@ END PROGRAM zeta0
 
 SUBROUTINE zeta0utest(stat)
     INTEGER, INTENT(out) :: stat
-    DOUBLE PRECISION :: pi, test, pi_real, diff
+    REAL*8 :: pi, test, pi_real, diff
     INTEGER :: n
 
     PRINT*, "=== Commencing Unit Test of zeta0 ==="
@@ -58,7 +58,7 @@ END SUBROUTINE zeta0utest
 
 SUBROUTINE zeta0vtest()
     INTEGER :: n, k
-    DOUBLE PRECISION :: pi, pi_real, start, finish
+    REAL*8 :: pi, pi_real, start, finish
 
     PRINT*, "=== Commencing Verification Test of zeta0 ==="
 
@@ -86,7 +86,7 @@ END SUBROUTINE zeta0vtest
 
 SUBROUTINE zeta0Calc(n, pi)
     INTEGER, INTENT(in) :: n
-    DOUBLE PRECISION, INTENT(out) :: pi
+    REAL*8, INTENT(out) :: pi
     INTEGER*8 :: i
     ! Calculate Pi by the Riemann Zeta method
     pi = 0

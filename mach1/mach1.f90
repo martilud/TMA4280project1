@@ -6,8 +6,8 @@ PROGRAM mach1
     INTEGER :: n, localn
     INTEGER*8 :: i
     CHARACTER(32) :: argv
-    DOUBLE PRECISION, dimension(:), allocatable :: vector, localvector, globalvector
-    DOUBLE PRECISION :: frac1, frac2, acfrac1, acfrac2, tiny
+    REAL*8, dimension(:), allocatable :: vector, localvector, globalvector
+    REAL*8 :: frac1, frac2, acfrac1, acfrac2, tiny
     LOGICAL :: localequal, equal 
 
     tiny = 1e-16

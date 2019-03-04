@@ -1,7 +1,7 @@
 PROGRAM mach0
     IMPLICIT NONE
     INTEGER :: n, argc, stat
-    DOUBLE PRECISION :: pi
+    REAL*8 :: pi
     CHARACTER(32) :: argv
 
     ! Note that this file is almost identical to zeta0
@@ -31,7 +31,7 @@ END PROGRAM mach0
 
 SUBROUTINE mach0utest(stat)
     INTEGER, INTENT(out) :: stat
-    DOUBLE PRECISION :: pi, pi_real, test, diff
+    REAL*8 :: pi, pi_real, test, diff
     INTEGER :: n
 
     PRINT*, "=== Commencing Unit Test of mach0 ==="
@@ -62,7 +62,7 @@ END SUBROUTINE mach0utest
 
 SUBROUTINE mach0vtest()
     INTEGER :: n, k
-    DOUBLE PRECISION :: pi, pi_real, start, finish
+    REAL*8 :: pi, pi_real, start, finish
 
     PRINT*, "=== Commencing Verification Test of mach0 ==="
 
@@ -91,8 +91,8 @@ END SUBROUTINE mach0vtest
 SUBROUTINE mach0Calc1(n, pi)
     IMPLICIT NONE
     INTEGER, INTENT(in) :: n
-    DOUBLE PRECISION, INTENT(out) :: pi    
-    DOUBLE PRECISION :: frac1, frac2, acfrac1, acfrac2, sum1, sum2
+    REAL*8, INTENT(out) :: pi    
+    REAL*8 :: frac1, frac2, acfrac1, acfrac2, sum1, sum2
     INTEGER*8 :: i
 
     ! Calculate Pi by the Machin formula.
@@ -128,8 +128,8 @@ END SUBROUTINE mach0Calc1
 SUBROUTINE mach0Calc2(n, pi)
     IMPLICIT NONE
     INTEGER, INTENT(in) :: n
-    DOUBLE PRECISION, INTENT(out) :: pi    
-    DOUBLE PRECISION :: frac1, frac2,  sum1, sum2
+    REAL*8, INTENT(out) :: pi    
+    REAL*8 :: frac1, frac2,  sum1, sum2
     INTEGER*8 :: i
 
     ! Calculate Pi by the Machiin formula.

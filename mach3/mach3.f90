@@ -1,7 +1,7 @@
 PROGRAM mach3
     IMPLICIT NONE
     INTEGER :: n, p, argc, stat
-    DOUBLE PRECISION :: pi
+    REAL*8 :: pi
     CHARACTER(32) :: argv
 
     ! Get Input
@@ -28,7 +28,7 @@ END PROGRAM mach3
 
 SUBROUTINE mach3utest(stat)
     INTEGER, INTENT(out) :: stat
-    DOUBLE PRECISION :: pi, pi_real, test, diff
+    REAL*8 :: pi, pi_real, test, diff
     INTEGER :: n, p
 
     PRINT*, "=== Commencing Unit Test of mach3 ==="
@@ -61,7 +61,7 @@ END SUBROUTINE mach3utest
 SUBROUTINE mach3vtest()
     use omp_lib
     INTEGER :: n, k, p
-    DOUBLE PRECISION :: pi, pi_real, start, finish
+    REAL*8 :: pi, pi_real, start, finish
 
     PRINT*, "=== Commencing Verification Test of mach3 ==="
 
@@ -92,8 +92,8 @@ END SUBROUTINE mach3vtest
 SUBROUTINE mach3Calc1(n, pi)
     IMPLICIT NONE
     INTEGER, INTENT(in) :: n
-    DOUBLE PRECISION, INTENT(out) :: pi    
-    DOUBLE PRECISION :: frac1, frac2, acfrac1, acfrac2, sum1, sum2
+    REAL*8, INTENT(out) :: pi    
+    REAL*8 :: frac1, frac2, acfrac1, acfrac2, sum1, sum2
     INTEGER*8 :: i
 
     ! Calculate Pi by the Machin formula.
@@ -129,8 +129,8 @@ END SUBROUTINE mach3Calc1
 SUBROUTINE mach3Calc2(n, pi, p)
     IMPLICIT NONE
     INTEGER, INTENT(in) :: n, p
-    DOUBLE PRECISION, INTENT(out) :: pi    
-    DOUBLE PRECISION :: frac1, frac2,  sum1, sum2
+    REAL*8, INTENT(out) :: pi    
+    REAL*8 :: frac1, frac2,  sum1, sum2
     INTEGER*8 :: i
 
     ! Calculate Pi by the Machiin formula.
