@@ -53,8 +53,9 @@ PROGRAM zeta4
     localn =  n/size
     allocate(localvector(localn))
 
-    time1 = MPI_Wtime()
+    !time1 = MPI_Wtime()
     !call CPU_TIME(time1)
+    time1 = omp_get_wtime()
 
     ! Process 0 makes the vector
     if (rank == 0) then
@@ -112,8 +113,11 @@ PROGRAM zeta4
     endif
     if (rank == 0) then
         ! Finish calculating pi
+        pi = sqrt(pi*6)
+
         !call CPU_TIME(time2)
-        time2 = MPI_Wtime()
+        !time2 = MPI_Wtime()
+        time2 = omp_get_wtime()        
         deallocate(vector)
         if (argv1 == "utest") then
             PRINT*, "====================================="

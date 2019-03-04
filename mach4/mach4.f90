@@ -55,7 +55,8 @@ PROGRAM mach4
     allocate(localvector(localn))
     
     !time1 = MPI_Wtime()
-    call CPU_TIME(time1)
+    !call CPU_TIME(time1)
+    time1 = omp_get_wtime()
 
     ! Process 0 makes the vector
     if (rank == 0) then
@@ -121,8 +122,9 @@ PROGRAM mach4
         endif
     endif
     if (rank == 0) then
+        pi = 4*pi
         ! Finish calculating pi
-        call CPU_TIME(time2)
+        time2 = omp_get_wtime()
 
         deallocate(vector)
         if (argv1 == "utest") then
